@@ -1,0 +1,9 @@
+ISE101 - Mobile Programming
+
+Module 7 - Environment Check
+
+Node.js Version: v24.22.2
+
+npm Version: 11.19.1
+
+Expo Version: 58.1.19
