@@ -104,6 +104,12 @@ export default function HomeScreen() {
   </Text>
 </Pressable>
 
+<Pressable onPress={() => router.push('/local-tasks')}>
+  <Text style={{ color: "blue", textDecorationLine: "underline" }}>
+    Open Local Tasks
+  </Text>
+</Pressable>
+
 <AnnouncementPanel />
     </ScrollView>
   );
