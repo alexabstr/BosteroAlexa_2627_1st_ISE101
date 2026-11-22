@@ -1,0 +1,99 @@
+
+import { useState } from "react";
+import { Link } from "expo-router";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
+
+type AnnouncementItem = {
+  id: string;
+  title: string;
+  category: string;
+  read: boolean;
+};
+
+import AnnouncementCard from "./AnnouncementCard";
+
+export default function AnnouncementPanel() {
+  // Initial sample announcements
+  const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([
+    {
+      id: "101",
+      title: "Enrollment Reminder",
+      category: "Academic",
+      read: false,
+    },
+    {
+      id: "102",
+      title: "Sports Festival Announcement",
+      category: "Events",
+      read: false,
+    },
+    {
+      id: "103",
+      title: "Campus Clean-up Drive",
+      category: "Community",
+      read: true,
+    },
+  ]);
+
+  // Count unread announcements
+  const unreadCount = announcements.filter(
+    (announcement) => !announcement.read
+  ).length;
+
+  // Mark an announcement as read or unread
+  const handleMarkRead = (id: string) => {
+    setAnnouncements((currentAnnouncements) =>
+      currentAnnouncements.map((announcement) =>
+        announcement.id === id
+          ? { ...announcement, read: !announcement.read }
+          : announcement
+      )
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>
+        Campus Announcements
+      </Text>
+      <Text style={styles.counter}>
+        Unread Announcements: {unreadCount}
+      </Text>
+      <ScrollView>
+        {announcements.map((announcement) => (
+          <View key={announcement.id}>
+            <AnnouncementCard
+              title={announcement.title}
+              category={announcement.category}
+              read={announcement.read}
+              onMarkRead={() => handleMarkRead(announcement.id)}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginTop: 24,
+  },
+  heading: {
+    fontSize: 21,
+    fontWeight: "700",
+    marginBottom: 10,
+  },
+  counter: {
+    fontSize: 15,
+    fontWeight: "600",
+    marginBottom: 12,
+    color: "#2563EB",
+  },
+});
